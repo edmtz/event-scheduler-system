@@ -18,5 +18,5 @@ public class Registration {
     @JoinColumn(name = "event_id")
     private Event event;
 
-    private LocalDateTime registrationDate = LocalDateTime.now();
+    private final LocalDateTime registrationDate = LocalDateTime.now();
 }
