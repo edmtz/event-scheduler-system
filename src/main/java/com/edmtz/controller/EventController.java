@@ -12,17 +12,6 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import java.io.PrintWriter;
 
-//@RestController
-//@RequestMapping("/services")
-//public class EventController {
-//
-//    @GetMapping
-//    public String getEvents() {
-//        return "HOLA MUNDO";
-//    }
-//
-//}
-
 public class EventController implements Controller {
 
     @Override
