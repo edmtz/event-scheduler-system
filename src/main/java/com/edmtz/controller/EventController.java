@@ -1,25 +1,14 @@
 package com.edmtz.controller;
 
-import com.edmtz.model.Event;
-import com.edmtz.service.EventService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
-@RequestMapping("api/events")
 public class EventController {
-    @Autowired
-    private EventService eventService;
 
-    @PostMapping
-    public Event createEvent(@RequestBody Event event) {
-        return eventService.createEvent(event);
+    @GetMapping("/events")
+    public String getEvents() {
+        return "My Events Are Here!";
     }
-
-    @GetMapping
-    public List<Event> getAllEvents() {
-        return eventService.getAllEvents();
-    }
-
 }
