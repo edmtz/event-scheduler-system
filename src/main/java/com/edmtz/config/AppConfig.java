@@ -8,10 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.edmtz")
+@ComponentScan(basePackages = "com.edmtz.controller")
 public class AppConfig {
-//    @Bean
-//    public EventController getEventController(){
-//        return new EventController();
-//    }
+
 }
