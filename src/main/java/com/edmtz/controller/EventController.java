@@ -3,6 +3,7 @@ package com.edmtz.controller;
 import com.edmtz.model.Event;
 import com.edmtz.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
