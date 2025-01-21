@@ -43,6 +43,21 @@ cd event-scheduler-system
 ./mvnw spring-boot:run
 ```
 
+##### Changing the Environment (Active Profile)
+- Spring Framework allows you to manage configurations for different environments (e.g., `dev`, `test`, `prod`) using **profiles**.  
+- The active profile determines which configuration properties are loaded at runtime.
+- The active profile is specified using the `SPRING_PROFILES_ACTIVE` environment variable. Follow the instructions below to set it for your operating system or deployment environment.
+
+###### On Linux/MacOS
+```bash
+export SPRING_PROFILES_ACTIVE=dev
+```
+
+###### On Windows
+```cmd
+set SPRING_PROFILES_ACTIVE=dev
+```
+
 #### Frontend
 1. Navigate to the frontend directory
 ```
