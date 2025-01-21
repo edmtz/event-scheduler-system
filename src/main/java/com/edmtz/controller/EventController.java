@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/events")
 public class EventController {
 //    @Autowired
 //    private EventService eventService;
@@ -18,9 +18,29 @@ public class EventController {
 //        return eventService.createEvent(event);
 //    }
 
-    @GetMapping("events")
+    @GetMapping
     public String getAllEvents() {
         return "YEP";
+    }
+
+    @GetMapping("/{id}") // PATH VARIABLE
+    public String getEventById(@PathVariable("id") int id) {
+        return "Event " + id;
+    }
+
+    @PostMapping
+    public String createEvent(@RequestBody String event) {
+        return "Created event: " + event;
+    }
+
+    @PutMapping("/{id}")
+    public String updateEvent(@PathVariable("id") Long id, @RequestBody String event) {
+        return "Event " + id + " updated to" + event;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteEvent(@PathVariable("id") Long id) {
+        return "Event " + id + " deleted";
     }
 
 }
