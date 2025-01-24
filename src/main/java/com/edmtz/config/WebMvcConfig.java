@@ -26,6 +26,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = {
         "com.edmtz.controller",
         "com.edmtz.model",
+        "com.edmtz.service",
         "com.edmtz.repository"
 })
 public class WebMvcConfig {

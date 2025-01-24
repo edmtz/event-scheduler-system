@@ -6,6 +6,15 @@ import jakarta.validation.constraints.Size;
 
 public class RegisterDTO {
 
+    @NotBlank(message = "First name is required")
+    private String firstName;
+
+    @NotBlank(message = "Last name is required")
+    private String lastName;
+
+    @NotBlank(message = "Username is required")
+    private String username;
+
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
     private String email;
@@ -16,9 +25,30 @@ public class RegisterDTO {
 
     @NotBlank(message = "Confirm Password is required")
     private String confirmPassword;
+    
+    public String getFirstName() {
+        return firstName;
+    }
 
-    @NotBlank(message = "Username is required")
-    private String userName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getEmail() {
         return email;
@@ -42,13 +72,5 @@ public class RegisterDTO {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
-    }
-
-    public String getUsername() {
-        return userName;
-    }
-
-    public void setUsername(String userName) {
-        this.userName = userName;
     }
 }
