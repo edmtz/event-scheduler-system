@@ -17,8 +17,8 @@ public class RegisterDTO {
     @NotBlank(message = "Confirm Password is required")
     private String confirmPassword;
 
-    @NotBlank(message = "Name is required")
-    private String name;
+    @NotBlank(message = "Username is required")
+    private String userName;
 
     public String getEmail() {
         return email;
@@ -44,11 +44,11 @@ public class RegisterDTO {
         this.confirmPassword = confirmPassword;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String userName) {
+        this.userName = userName;
     }
 }
