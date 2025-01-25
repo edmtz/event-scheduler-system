@@ -13,6 +13,8 @@ public class EventService {
     private EventRepository eventRepository;
 
     public Event createEvent(Event event) {
+
+
         return eventRepository.save(event);
     }
 

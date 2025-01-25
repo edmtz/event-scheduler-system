@@ -1,34 +1,23 @@
-package com.edmtz.model;
+package com.edmtz.dto;
 
-import com.edmtz.repository.UserRepository;
-import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.edmtz.model.User;
 
 import java.time.LocalDateTime;
 
-@Entity
-public class Event {
+public class EventDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
+
 
     private String name;
     private String description;
     private LocalDateTime dateTime;
     private String location;
 
-    @ManyToOne
-    @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy;
 
-    public Long getId() {
-        return id;
-    }
+    private Long createdBy;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
 
     public String getName() {
         return name;
@@ -62,11 +51,11 @@ public class Event {
         this.location = location;
     }
 
-    public User getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(User createdBy) {
+    public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
 }

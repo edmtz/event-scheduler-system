@@ -1,6 +1,9 @@
 package com.edmtz.controller;
 
+import com.edmtz.dto.EventDTO;
 import com.edmtz.model.Event;
+import com.edmtz.model.User;
+import com.edmtz.repository.UserRepository;
 import com.edmtz.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +17,21 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private UserRepository userRepo;
+
     @PostMapping
-    public ResponseEntity<?> createEvent(@RequestBody Event event) {
+    public ResponseEntity<?> createEvent(@RequestBody EventDTO eventDTO) {
+
+        User creator = userRepo.findById(eventDTO.getCreatedBy()).orElseThrow(() -> new RuntimeException("NOT FOUND"));
+
+        Event event = new Event();
+        event.setName(eventDTO.getName());
+        event.setDescription(eventDTO.getDescription());
+        event.setDateTime(eventDTO.getDateTime());
+        event.setLocation(eventDTO.getLocation());
+        event.setCreatedBy(creator);
+
         try {
             Event createdEvent = eventService.createEvent(event);
             return ResponseEntity.status(HttpStatus.CREATED).body("Event Created: " + createdEvent.getName());

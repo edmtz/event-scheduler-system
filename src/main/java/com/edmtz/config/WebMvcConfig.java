@@ -29,6 +29,7 @@ import java.util.Properties;
         "com.edmtz.service",
         "com.edmtz.repository"
 })
+@Import({SecurityConfig.class})
 public class WebMvcConfig {
 
     @Bean
