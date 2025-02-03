@@ -40,10 +40,10 @@ public class EventController {
         }
     }
 
-//    @GetMapping
-//    public String getAllEvents() {
-//        return "YEP";
-//    }
+    @GetMapping
+    public String getAllEvents() {
+        return "YEP";
+    }
 //
 //    @GetMapping("/{id}") // PATH VARIABLE
 //    public String getEventById(@PathVariable("id") int id) {

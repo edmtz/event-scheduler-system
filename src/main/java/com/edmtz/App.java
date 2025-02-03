@@ -1,6 +1,6 @@
 package com.edmtz;
 
-import com.edmtz.config.WebMvcConfig;
+import com.edmtz.config.general.AppConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -9,11 +9,13 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+
         ApplicationContext context = new AnnotationConfigApplicationContext(
-                WebMvcConfig.class
+                AppConfig.class
         );
 
         ApplicationContext xmlContext = new ClassPathXmlApplicationContext("application-context.xml");
+
+        System.out.println("EJEMPLO!");
     }
 }

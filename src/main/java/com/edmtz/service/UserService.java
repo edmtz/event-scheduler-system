@@ -18,19 +18,19 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User createUser(@Valid RegisterDTO userDto) {
-
-
         User newUser = new User();
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
         newUser.setUsername(userDto.getUsername());
         newUser.setEmail(userDto.getEmail());
         newUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
-
         return userRepository.save(newUser);
     }
 
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
+
+    public Optional<User> getUserByUsername(String username) {return userRepository.findByUsername(username);}
+
 }

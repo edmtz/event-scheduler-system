@@ -1,6 +1,9 @@
-package com.edmtz.config;
+package com.edmtz.config.general;
 
 
+import com.edmtz.config.web.DispatcherServletInitializer;
+import com.edmtz.config.security.SecurityAppConfig;
+import com.edmtz.config.security.SecurityInitializer;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,13 +27,10 @@ import java.util.Properties;
         "com.edmtz.repository"
 })
 @ComponentScan(basePackages = {
-        "com.edmtz.controller",
-        "com.edmtz.model",
-        "com.edmtz.service",
-        "com.edmtz.repository"
+        "com.edmtz"
 })
-@Import({SecurityConfig.class})
-public class WebMvcConfig {
+@Import({SecurityInitializer.class, DispatcherServletInitializer.class, SecurityAppConfig.class})
+public class AppConfig {
 
     @Bean
     public DataSource dataSource() {
