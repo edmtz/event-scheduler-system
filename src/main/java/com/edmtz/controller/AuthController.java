@@ -6,10 +6,13 @@ import com.edmtz.dto.RegisterDTO;
 import com.edmtz.model.User;
 import com.edmtz.service.AuthService;
 import com.edmtz.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -41,8 +44,13 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public String logout() {
-        return "Logout!";
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        SecurityContextHolder.clearContext();
+        return ResponseEntity.ok("Logout Successfully");
     }
 
 }

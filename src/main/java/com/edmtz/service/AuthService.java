@@ -3,17 +3,20 @@ package com.edmtz.service;
 import com.edmtz.dto.AuthResponseDTO;
 import com.edmtz.dto.LoginDTO;
 import com.edmtz.jwt.JwtUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.logging.Logger;
-
 @Service
 public class AuthService {
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -21,15 +24,19 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    private final static Logger logger = Logger.getLogger(AuthService.class.getName());
-
     public AuthResponseDTO authenticateUser(LoginDTO loginDTO) {
+        SecurityContextHolder.clearContext();
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword())
         );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        System.out.println("💡💡💡💡💡💡💡💡💡💡💡💡💡");
+        logger.info("EJEMPLO YA!!!!!");
         System.out.println(userDetails);
-        logger.info("INFOOOO" + userDetails.toString());
+
+
         final String jwt = jwtUtil.generateToken(userDetails.getUsername(), userDetails.getAuthorities());
         return new AuthResponseDTO(jwt);
     }
