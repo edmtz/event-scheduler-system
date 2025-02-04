@@ -6,18 +6,10 @@ import java.time.LocalDateTime;
 
 public class EventDTO {
 
-
-
-
     private String name;
     private String description;
     private LocalDateTime dateTime;
     private String location;
-
-
-    private Long createdBy;
-
-
 
     public String getName() {
         return name;
@@ -49,13 +41,5 @@ public class EventDTO {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public Long getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Long createdBy) {
-        this.createdBy = createdBy;
     }
 }
