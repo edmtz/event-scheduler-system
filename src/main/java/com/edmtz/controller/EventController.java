@@ -13,36 +13,17 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/api/v1/events")
 public class EventController {
 
     @Autowired
-    private JwtUtil jwtUtil;
-
-    @Autowired
     private EventService eventService;
 
-    @Autowired
-    private UserRepository userRepo;
-
     @PostMapping
-    public ResponseEntity<?> createEvent(@RequestBody EventDTO eventDTO, @AuthenticationPrincipal UserDetails userDetails) {
-
-        String username = userDetails.getUsername();
-
-        User creator = userRepo.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
-
-        Event event = new Event();
-        event.setName(eventDTO.getName());
-        event.setDescription(eventDTO.getDescription());
-        event.setDateTime(eventDTO.getDateTime());
-        event.setLocation(eventDTO.getLocation());
-        event.setCreatedBy(creator);
-
+    public ResponseEntity<String> createEvent(@RequestBody EventDTO eventDTO, @AuthenticationPrincipal UserDetails userDetails) {
+        Event createdEvent = eventService.createEvent(eventDTO, userDetails);
         try {
-            Event createdEvent = eventService.createEvent(event);
             return ResponseEntity.status(HttpStatus.CREATED).body("Event Created: " + createdEvent.getName());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong");
