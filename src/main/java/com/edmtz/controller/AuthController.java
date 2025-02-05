@@ -1,8 +1,8 @@
 package com.edmtz.controller;
 
-import com.edmtz.dto.AuthResponseDTO;
-import com.edmtz.dto.LoginDTO;
-import com.edmtz.dto.RegisterDTO;
+import com.edmtz.dto.response.AuthResponseDTO;
+import com.edmtz.dto.request.LoginDTO;
+import com.edmtz.dto.request.RegisterDTO;
 import com.edmtz.model.User;
 import com.edmtz.service.AuthService;
 import com.edmtz.service.UserService;

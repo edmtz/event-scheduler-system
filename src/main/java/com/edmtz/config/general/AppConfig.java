@@ -29,7 +29,8 @@ import java.util.Properties;
 @ComponentScan(basePackages = {
         "com.edmtz"
 })
-@Import({SecurityInitializer.class, DispatcherServletInitializer.class, SecurityAppConfig.class})
+@Import({SecurityInitializer.class, DispatcherServletInitializer.class,
+        SecurityAppConfig.class, JacksonConfig.class})
 public class AppConfig {
 
     @Bean

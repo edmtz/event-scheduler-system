@@ -1,9 +1,6 @@
 package com.edmtz.model;
 
-import com.edmtz.repository.UserRepository;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -68,5 +65,17 @@ public class Event {
 
     public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", dateTime=" + dateTime +
+                ", location='" + location + '\'' +
+                ", createdBy=" + createdBy +
+                '}';
     }
 }

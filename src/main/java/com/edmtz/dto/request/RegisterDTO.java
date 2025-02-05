@@ -1,6 +1,5 @@
-package com.edmtz.dto;
+package com.edmtz.dto.request;
 
-import com.edmtz.model.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

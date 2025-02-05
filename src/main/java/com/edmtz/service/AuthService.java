@@ -1,7 +1,7 @@
 package com.edmtz.service;
 
-import com.edmtz.dto.AuthResponseDTO;
-import com.edmtz.dto.LoginDTO;
+import com.edmtz.dto.response.AuthResponseDTO;
+import com.edmtz.dto.request.LoginDTO;
 import com.edmtz.jwt.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
 package com.edmtz.service;
 
-import com.edmtz.dto.RegisterDTO;
+import com.edmtz.dto.request.RegisterDTO;
 import com.edmtz.model.User;
 import com.edmtz.repository.UserRepository;
 import jakarta.validation.Valid;

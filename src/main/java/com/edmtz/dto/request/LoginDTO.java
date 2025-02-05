@@ -1,4 +1,4 @@
-package com.edmtz.dto;
+package com.edmtz.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

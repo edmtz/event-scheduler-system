@@ -1,4 +1,4 @@
-package com.edmtz.dto;
+package com.edmtz.dto.response;
 
 public class AuthResponseDTO {
     private final String token;
