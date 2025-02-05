@@ -7,7 +7,8 @@ import com.edmtz.model.Event;
 import com.edmtz.model.User;
 import com.edmtz.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,8 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
-    public Event createEvent(EventDTO eventDTO, UserDetails userDetails) {
+    public Event createEvent(EventDTO eventDTO) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User creator = (User) userDetails;
         Event event = new Event();
         event.setName(eventDTO.getName());
@@ -44,8 +46,8 @@ public class EventService {
     }
 
     public void updateEvent(Long id, EventDTO updatedEvent) {
-        Event event = eventRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Event not found with id: " + id));
+        Event event = getEventOrThrow(id);
+        validateUserOwnership(event);
 
         event.setName(updatedEvent.getName());
         event.setDescription(updatedEvent.getDescription());
@@ -56,9 +58,20 @@ public class EventService {
     }
 
     public void deleteEvent(Long id) {
-        if (!eventRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Event not found with id: " + id);
-        }
+        Event event = getEventOrThrow(id);
+        validateUserOwnership(event);
         eventRepository.deleteById(id);
+    }
+
+    public Event getEventOrThrow(Long id) {
+        return eventRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Event not found with id: " + id));
+    }
+
+    public void validateUserOwnership(Event event) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!userDetails.getUsername().equals(event.getCreatedBy().getUsername())) {
+            throw new AccessDeniedException("Action denied. This user is not the owner.");
+        }
     }
 }

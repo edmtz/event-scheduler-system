@@ -21,8 +21,8 @@ public class EventController {
     private EventService eventService;
 
     @PostMapping
-    public ResponseEntity<String> createEvent(@RequestBody EventDTO eventDTO, @AuthenticationPrincipal UserDetails userDetails) {
-        Event createdEvent = eventService.createEvent(eventDTO, userDetails);
+    public ResponseEntity<String> createEvent(@RequestBody EventDTO eventDTO) {
+        Event createdEvent = eventService.createEvent(eventDTO);
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body("Event Created: " + createdEvent.getName());
         } catch (Exception e) {
