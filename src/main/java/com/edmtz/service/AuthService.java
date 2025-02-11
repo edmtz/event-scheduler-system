@@ -32,10 +32,6 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        System.out.println("💡💡💡💡💡💡💡💡💡💡💡💡💡");
-        logger.info("EJEMPLO YA!!!!!");
-        System.out.println(userDetails);
-
 
         final String jwt = jwtUtil.generateToken(userDetails.getUsername(), userDetails.getAuthorities());
         return new AuthResponseDTO(jwt);
