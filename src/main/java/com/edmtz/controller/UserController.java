@@ -1,7 +1,7 @@
 package com.edmtz.controller;
 
+import com.edmtz.dto.request.UserDTO;
 import com.edmtz.model.User;
-import com.edmtz.repository.UserRepository;
 import com.edmtz.service.ParticipantService;
 import com.edmtz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -30,6 +29,18 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(userService.getUserById(userId));
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<Void> updateUser(@PathVariable("userId") Long userId, @RequestBody UserDTO userDTO) {
+        userService.updateUser(userId, userDTO);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("userId") Long userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/events/{eventId}/join")

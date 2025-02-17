@@ -1,6 +1,7 @@
 package com.edmtz.service;
 
 import com.edmtz.dto.request.RegisterDTO;
+import com.edmtz.dto.request.UserDTO;
 import com.edmtz.model.Event;
 import com.edmtz.model.User;
 import com.edmtz.repository.EventRepository;
@@ -44,4 +45,18 @@ public class UserService {
     }
 
     public Optional<User> getUserByUsername(String username) {return userRepository.findByUsername(username);}
+
+    public void updateUser(Long userId, UserDTO userDTO) {
+        User modifiedUser = new User();
+        modifiedUser.setId(userId);
+        modifiedUser.setFirstName(userDTO.getFirstName());
+        modifiedUser.setLastName(userDTO.getLastName());
+        modifiedUser.setPassword(userDTO.getPassword());
+        userRepository.save(modifiedUser);
+    }
+
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
 }
