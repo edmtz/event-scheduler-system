@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,7 @@ public class ParticipantController {
     @DeleteMapping("/{eventId}/users/{userId}")
     public ResponseEntity<String> removeParticipant(
             @PathVariable("eventId") Long eventId,
-            @PathVariable("userId") Long userId) {
+            @PathVariable("userId") Long userId)  {
         participantService.removeParticipant(eventId, userId);
         return ResponseEntity.ok().body("ok");
     }

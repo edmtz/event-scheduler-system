@@ -42,44 +42,34 @@ public class ParticipantService {
 
     @Transactional
     public void addParticipant(Long eventId, Long userId) {
-        User user = getUser(userId);
+        User requester = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userToAdd = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         Event event = eventRepository.findByIdWithParticipants(eventId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
-        if (event.getParticipants().contains(user)) {
+        if (event.getParticipants().stream().map(User::getId).anyMatch(id -> id.equals(userToAdd.getId()))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is already a participant in this event.");
         }
-        if (userId != null && !event.getCreatedBy().equals(user)) {
+        if (!event.getCreatedBy().getId().equals(requester.getId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only the event creator can add other users.");
         }
-        event.getParticipants().add(user);
+        event.getParticipants().add(userToAdd);
         eventRepository.save(event);
     }
 
-
     @Transactional
     public void removeParticipant(Long eventId, Long userId) {
-        User user = getUser(userId);
-        userId = user.getId();
-        Event event = eventRepository.findById(eventId)
+        User requester = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userToRemove = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        Event event = eventRepository.findByIdWithParticipants(eventId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
-        List<Long> participantIds = eventRepository.findParticipantIdsByEventId(eventId);
-        if (!participantIds.contains(userId)) {
+        if (event.getParticipants().stream().map(User::getId).noneMatch(id -> id.equals(userToRemove.getId()))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is not a participant in this event.");
         }
-        User eventCreator = event.getCreatedBy();
-        if (!userId.equals(eventCreator.getId()) && !userId.equals(user.getId())) {
+        if (!event.getCreatedBy().getId().equals(requester.getId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Only the event creator can remove other users.");
         }
         eventRepository.removeUserFromEvent(eventId, userId);
     }
-
-    private User getUser(Long userId) {
-        if (userId == null) {
-            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return (User) userDetails;
-        }
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-    }
-
 }

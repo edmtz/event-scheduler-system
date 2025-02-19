@@ -4,6 +4,7 @@ import com.edmtz.dto.request.EventDTO;
 import com.edmtz.dto.response.EventResponseDTO;
 import com.edmtz.model.Event;
 import com.edmtz.service.EventService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class EventController {
     private EventService eventService;
 
     @PostMapping
-    public ResponseEntity<String> createEvent(@RequestBody EventDTO eventDTO) {
+    public ResponseEntity<String> createEvent(@Valid @RequestBody EventDTO eventDTO) {
         Event createdEvent = eventService.createEvent(eventDTO);
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body("Event Created: " + createdEvent.getName());

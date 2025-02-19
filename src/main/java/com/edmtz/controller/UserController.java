@@ -45,13 +45,13 @@ public class UserController {
 
     @PostMapping("/events/{eventId}/join")
     public ResponseEntity<String> joinEvent(@PathVariable("eventId") Long eventId) {
-        participantService.addParticipant(eventId, null);
+        userService.joinEvent(eventId);
         return ResponseEntity.ok().body("Participant added successfully!");
     }
 
     @DeleteMapping("/events/{eventId}/leave")
     public ResponseEntity<String> leaveEvent(@PathVariable("eventId") Long eventId) {
-        participantService.removeParticipant(eventId, null);
+        userService.leaveEvent(eventId);
         return ResponseEntity.ok("Participant deleted successfully");
     }
 }

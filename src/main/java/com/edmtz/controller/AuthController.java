@@ -26,7 +26,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> createUser(@Valid @RequestBody RegisterDTO registerDto){
+    public ResponseEntity<?> createUser(@RequestBody RegisterDTO registerDto){
         try {
             User createdUser = userService.createUser(registerDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdUser.getUsername());
